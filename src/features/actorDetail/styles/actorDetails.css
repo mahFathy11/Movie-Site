@@ -1,0 +1,23 @@
+.actor-details-page {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  min-height: 100vh;
+  padding: var(--section-padding);
+}
+
+.actor-details-state,
+.actor-details-empty {
+  display: grid;
+  min-height: 8rem;
+  color: var(--text-color-sec);
+  text-align: center;
+  place-items: center;
+  background: var(--sec-color);
+  border: 1px dashed var(--hover-border);
+  border-radius: 0.5rem;
+}
+
+.actor-details-state {
+  margin: var(--section-padding);
+}

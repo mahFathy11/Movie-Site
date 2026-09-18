@@ -1,0 +1,117 @@
+.actor-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: 12.5rem minmax(0, 1fr);
+  gap: 2.25rem;
+  padding: 1.5rem;
+  background: rgba(14, 26, 38, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.75rem;
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.2);
+}
+
+.actor-back {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 1;
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  color: var(--text-color);
+  font-size: 1.1rem;
+  place-items: center;
+  background: rgba(12, 22, 34, 0.75);
+  border: 1px solid var(--hover-border);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.actor-back:hover {
+  color: var(--main-color);
+  background: var(--hover-border);
+}
+.actor-profile {
+  grid-column: 1;
+  grid-row: 1;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  background: var(--main-color);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.45rem;
+}
+
+.actor-info h1,
+.known-for h2 {
+  margin: 0;
+  color: #fff8f2;
+  font-family: Georgia, serif;
+}
+
+.actor-info {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.actor-info h1 {
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+}
+
+.actor-popularity {
+  margin: 0.3rem 0 1rem;
+  color: var(--text-color-sec);
+  font-size: 0.85rem;
+}
+
+.actor-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 2rem;
+}
+
+.actor-facts dt {
+  color: var(--text-color-sec);
+  font-size: 0.75rem;
+}
+
+.actor-facts dd {
+  margin: 0.15rem 0 0;
+  color: var(--text-color);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.actor-facts a {
+  color: var(--hover-border);
+}
+
+.actor-biography {
+  max-width: 52rem;
+  margin: 1.5rem 0 0;
+  color: var(--text-color-sec);
+  line-height: 1.7;
+}
+
+@media (max-width: 600px) {
+  .actor-hero {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    padding-top: 3.5rem;
+  }
+
+  .actor-profile {
+    grid-column: 1;
+    grid-row: auto;
+    width: min(12rem, 60%);
+  }
+
+  .actor-info {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .actor-facts {
+    gap: 0.85rem;
+  }
+}

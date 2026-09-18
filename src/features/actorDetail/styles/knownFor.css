@@ -1,0 +1,37 @@
+.known-for h2 {
+  margin-bottom: 1rem;
+  font-size: 1.35rem;
+}
+
+.known-for-list {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1.1rem 0.85rem;
+}
+
+.known-for-list .movie-card {
+  width: 100%;
+  min-width: 0;
+  height: 19rem;
+}
+
+.known-for-list .movie-card .image {
+  width: 100%;
+  height: 15rem;
+}
+
+@media (max-width: 700px) {
+  .known-for-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .known-for-list .movie-card .image {
+    height: 13.5rem;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 950px) {
+  .known-for-list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

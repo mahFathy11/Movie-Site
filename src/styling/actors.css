@@ -1,0 +1,112 @@
+.actors-page {
+  min-height: 100vh;
+  padding: var(--section-padding);
+  color: var(--text-color);
+}
+
+.actors-page h1 {
+  margin: 0 0 1rem;
+  color: #fff8f2;
+  font-family: Georgia, serif;
+  font-size: clamp(1.35rem, 2vw, 1.65rem);
+}
+
+.actors-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1.1rem 0.85rem;
+}
+
+.actor-card {
+  min-width: 0;
+  padding: 0;
+  text-align: center;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.actor-card img,
+.actor-image-placeholder,
+.actor-skeleton {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+}
+
+.actor-card img {
+  object-fit: cover;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  cursor:pointer;
+}
+
+.actor-image-placeholder,
+.actor-skeleton {
+  background: var(--sec-color);
+}
+
+.actor-card:hover img {
+  border-color: var(--hover-border);
+  box-shadow: 0 0 1rem color-mix(in srgb, var(--hover-border) 35%, transparent);
+  transform: scale(1.025);
+}
+
+.actor-card h2 {
+  overflow: hidden;
+  margin: 0.65rem 0 0;
+  color: #fff8f2;
+  font-size: 0.82rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.actor-skeleton {
+  animation: actor-loading 1.4s ease-in-out infinite;
+}
+
+.actors-state {
+  display: grid;
+  min-height: 8rem;
+  margin: 0;
+  padding: 1rem;
+  text-align: center;
+  place-items: center;
+  background: var(--sec-color);
+  border: 1px dashed var(--hover-border);
+  border-radius: 0.45rem;
+}
+
+.actors-state button {
+  padding: 0.5rem 0.8rem;
+  color: var(--text-color);
+  background: transparent;
+  border: 1px solid var(--hover-border);
+  border-radius: 0.35rem;
+  cursor: pointer;
+}
+
+@keyframes actor-loading {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@media (max-width: 900px) {
+  .actors-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .actors-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 450px) {
+  .actors-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

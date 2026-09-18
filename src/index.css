@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+  --section-padding: 3rem clamp(1rem, 5vw, 4rem);
+  --main-color: #0c1622;
+  --sec-color: #152433;
+  --hover-border:#01b4e4;
+  --text-color:#ffffff;
+  --text-color-sec:#8a99a8;
+  --heading-color: #fff8f2;
+  --surface-color: #152433;
+  --surface-raised: #1b2d3f;
+  --border-color: rgba(255, 255, 255, 0.14);
+  --control-bg: rgba(245, 245, 245, 0.12);
+  --control-border: rgba(245, 245, 245, 0.22);
+  --overlay-color: rgba(12, 22, 34, 0.86);
+  --card-gradient: linear-gradient(135deg, rgba(21, 36, 51, 0.98), rgba(12, 22, 34, 0.88));
+  --card-overlay: linear-gradient(180deg, rgba(4, 16, 27, 0.05), rgba(4, 16, 27, 0.9));
+  --meta-color: #b9d7e5;
+  --accent-soft: #8edff5;
+  --nav-height: 5rem;
+  --page-transition-duration: 280ms;
+}
+
+:root[data-theme='light'] {
+  --main-color: #f2f5f7;
+  --sec-color: #ffffff;
+  --hover-border: #087ea4;
+  --text-color: #10212e;
+  --text-color-sec: #526575;
+  --heading-color: #173042;
+  --surface-color: #ffffff;
+  --surface-raised: #e7eef3;
+  --border-color: #c1d0da;
+  --control-bg: #ffffff;
+  --control-border: #9fb3c1;
+  --overlay-color: rgba(255, 255, 255, 0.92);
+  --card-gradient: linear-gradient(135deg, #ffffff, #e7eef3);
+  --card-overlay: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(16, 33, 46, 0.55));
+  --meta-color: #365468;
+  --accent-soft: #087ea4;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color: var(--main-color);
+  color: var(--text-color);
+  font-family: 'Poppins', sans-serif;
+  /* تعيين Cairo كخط أساسي للنصوص العربية، و Inter للإنجليزية والأرقام في كامل الموقع */
+  font-family: 'Cairo', 'Inter', sans-serif;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.page-transition {
+  animation: page-enter var(--page-transition-duration) ease both;
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.35rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* تخصيص Poppins ليكون متاحاً للعناوين أو الأزرار البارزة */
+.font-poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+ul{
+  list-style: none;
+}

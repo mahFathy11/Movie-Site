@@ -1,0 +1,28 @@
+.companies h2 {
+  margin: 0 0 1rem;
+}
+
+.companies-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.35rem;
+}
+
+.company {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--text-color-sec);
+  font-size: 0.82rem;
+}
+
+.company img,
+.company-logo-placeholder {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  object-fit: contain;
+  background: var(--sec-color);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 0.25rem;
+}

@@ -1,0 +1,258 @@
+/* Base card layout. */
+.home-card {
+    width: min(70%, 72rem);
+    height: 95%;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(1.25rem, 3vw, 2.5rem);
+    flex-shrink: 0;
+    padding: clamp(1.25rem, 3vw, 2.25rem);
+    overflow: hidden;
+    background: var(--card-gradient);
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+    box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.28);
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    opacity: 0.65;
+}
+
+.home-card.none {
+    display:none;
+}
+
+/* Keep the active movie centered between its neighbors. */
+.home-card.active {
+    order: 2;
+    transform: scale(1);
+    opacity: 1;
+}
+
+.home-card.next {
+    order: 3;
+    transform: translateX(0) scale(0.9);
+}
+
+.home-card.prev {
+    order: 1;
+    transform: translateX(0) scale(0.9);
+}
+
+/* Text and movie metadata. */
+.home-card .content {
+    flex: 1 1 50%;
+    max-width: 34rem;
+}
+
+
+.home-card h2 {
+    color: var(--text-color);
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    margin: 0;
+}
+
+
+.home-card p {
+    max-width: 32rem;
+    color: var(--text-color-sec);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 1.5rem 0;
+}
+
+.home-card p:has(+ .read-more) {
+    margin: 1rem 0 0;
+}
+
+.movie-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    color: var(--meta-color);
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.movie-meta span:first-child {
+    color: #ffd166;
+}
+
+.read-more {
+    padding: 0;
+    color: var(--accent-soft);
+    font: inherit;
+    font-size: 0.8rem;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+
+.btns {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.home-card .btns button {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: 0.75rem 1.25rem;
+    color: var(--text-color);
+    font: inherit;
+    font-weight: 600;
+    border: 1px solid var(--hover-border);
+    border-radius: 0.45rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+.home-card .btns button::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    aspect-ratio: 1;
+    transition: transform 0.45s ease, width 0.45s ease;
+}
+
+.home-card .btns button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(1, 180, 228, 0.24);
+}
+
+.home-card .btns button.watch {
+    background-color: var(--hover-border);
+}
+
+.home-card .btns button.watch::before {
+    background-color: #00c9ff;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    width: 1rem;
+    transform: translate(-50%, -50%) scale(0);
+}
+
+.home-card .btns .watch:hover::before {
+    transform: translate(-50%, -50%) scale(25);
+}
+
+.home-card .btns button.info {
+    background-color: var(--surface-raised);
+}
+
+.home-card .btns button.info::before {
+    background-color: #0b1723;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 100%;
+}
+
+.home-card .btns button.info:hover::before {
+    width: 100%;
+}
+
+.home-card .image {
+    position: relative;
+    flex: 0 0 44%;
+    max-width: 44%;
+    height: 100%;
+    min-height: 0;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.3);
+}
+
+.home-card .image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--card-overlay);
+    pointer-events: none;
+}
+
+.home-card .image .name {
+    position: absolute;
+    bottom: -1.7rem;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+    width: 100%;
+    text-align: center;
+}
+
+
+.home-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 0.6rem;
+}
+
+.home-card picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* Stack content and image on small screens. */
+@media (max-width: 700px) {
+    .home-card {
+        align-items: stretch;
+        flex-direction: column;
+        width: calc(100vw - 2rem);
+        height: auto;
+        max-height: 100%;
+        gap: 0.75rem;
+        padding: 0.9rem;
+    }
+
+    .home-card .content {
+        flex: 0 0 auto;
+        max-width: none;
+    }
+
+    .home-card h2 {
+        font-size: clamp(1.7rem, 5vw, 2.2rem);
+    }
+
+    .home-card p {
+        margin: 0.8rem 0;
+        font-size: 0.82rem;
+        line-height: 1.45;
+    }
+
+    .movie-meta {
+        gap: 0.5rem;
+        margin-top: 0.65rem;
+        font-size: 0.75rem;
+    }
+
+    .home-card .btns {
+        gap: 0.5rem;
+    }
+
+    .home-card .btns button {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.8rem;
+    }
+
+    .home-card .image {
+        flex-basis: auto;
+        flex: 0 0 auto;
+        max-width: none;
+        aspect-ratio: 16 / 9;
+        width: 100%;
+        min-height: 0;
+        height: auto;
+    }
+}

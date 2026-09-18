@@ -1,0 +1,36 @@
+.related h2 {
+  margin: 0 0 1rem;
+}
+
+.related-list {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1.35rem 0.85rem;
+}
+
+.related-list .movie-card {
+  width: 100%;
+  min-width: 0;
+  height: 19rem;
+}
+
+.related-list .movie-card .image {
+  height: 15rem;
+}
+
+@media (max-width: 700px) {
+  .related-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem 0.75rem;
+  }
+
+  .related-list .movie-card .image {
+    height: 13.5rem;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 950px) {
+  .related-list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
