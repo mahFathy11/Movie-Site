@@ -10,11 +10,30 @@ const tmdbApi = axios.create({
 	},
 })
 
-const EXCLUDED_GENRE_IDS = new Set([18, 35])
+const EXCLUDED_GENRE_IDS = new Set([18, 35, 10749])
 const HIDDEN_MEDIA_TITLES = [
 	'accidental partners',
 	'loves of a french pussycat',
+	'pussy kills',
 ]
+const EXPLICIT_KEYWORDS = [
+	'pussy',
+	'porn',
+	'sex',
+	'xxx',
+	'adult',
+	'erotic',
+	'nude',
+	'explicit',
+	'blowjob',
+]
+
+function normalizeText(value) {
+	return String(value ?? '')
+		.toLowerCase()
+		.replace(/[^a-z0-9]+/g, ' ')
+		.trim()
+}
 
 function shouldHideMedia(item) {
 	const genreIds = Array.isArray(item?.genre_ids) ? item.genre_ids : []
@@ -22,16 +41,47 @@ function shouldHideMedia(item) {
 		return true
 	}
 
-	const titles = [
+	const textToCheck = [
 		item?.title,
 		item?.name,
 		item?.original_title,
 		item?.original_name,
-	].filter(Boolean).map((title) => String(title).toLowerCase())
+		item?.overview,
+	].filter(Boolean).map((value) => normalizeText(value))
 
-	return titles.some((title) =>
-		HIDDEN_MEDIA_TITLES.some((hiddenTitle) => title.includes(hiddenTitle)),
-	)
+	const titles = textToCheck.filter((text) => text.length > 0)
+
+	if (titles.some((title) => HIDDEN_MEDIA_TITLES.some((hiddenTitle) => title.includes(normalizeText(hiddenTitle))))) {
+		return true
+	}
+
+	if (titles.some((title) => EXPLICIT_KEYWORDS.some((keyword) => title.includes(keyword)))) {
+		return true
+	}
+
+	return false
+}
+
+function filterHiddenNestedResults(value) {
+	if (Array.isArray(value)) {
+		return value
+			.filter((item) => !shouldHideMedia(item))
+			.map((item) => filterHiddenNestedResults(item))
+	}
+
+	if (value && typeof value === 'object') {
+		const filteredEntries = Object.entries(value).map(([key, nestedValue]) => {
+			if (key === 'results' && Array.isArray(nestedValue)) {
+				return [key, nestedValue.filter((item) => !shouldHideMedia(item))]
+			}
+
+			return [key, filterHiddenNestedResults(nestedValue)]
+		})
+
+		return Object.fromEntries(filteredEntries)
+	}
+
+	return value
 }
 
 async function fetchMovies(endpoint, page = 1, params = {}) {
@@ -53,11 +103,7 @@ async function fetchMovies(endpoint, page = 1, params = {}) {
 	})
 
 	const data = response.data
-	if (Array.isArray(data?.results)) {
-		data.results = data.results.filter((item) => !shouldHideMedia(item))
-	}
-
-	return data
+	return filterHiddenNestedResults(data)
 }
 
 export function fetchTrendingMovies(page = 1) {
