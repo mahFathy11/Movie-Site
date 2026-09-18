@@ -10,6 +10,30 @@ const tmdbApi = axios.create({
 	},
 })
 
+const EXCLUDED_GENRE_IDS = new Set([18, 35])
+const HIDDEN_MEDIA_TITLES = [
+	'accidental partners',
+	'loves of a french pussycat',
+]
+
+function shouldHideMedia(item) {
+	const genreIds = Array.isArray(item?.genre_ids) ? item.genre_ids : []
+	if (genreIds.some((genreId) => EXCLUDED_GENRE_IDS.has(Number(genreId)))) {
+		return true
+	}
+
+	const titles = [
+		item?.title,
+		item?.name,
+		item?.original_title,
+		item?.original_name,
+	].filter(Boolean).map((title) => String(title).toLowerCase())
+
+	return titles.some((title) =>
+		HIDDEN_MEDIA_TITLES.some((hiddenTitle) => title.includes(hiddenTitle)),
+	)
+}
+
 async function fetchMovies(endpoint, page = 1, params = {}) {
 	// Keep authentication and common TMDB request parameters in one place.
 	const accessToken = import.meta.env.VITE_TMDB_ACCESS_TOKEN
@@ -28,7 +52,12 @@ async function fetchMovies(endpoint, page = 1, params = {}) {
 		},
 	})
 
-	return response.data
+	const data = response.data
+	if (Array.isArray(data?.results)) {
+		data.results = data.results.filter((item) => !shouldHideMedia(item))
+	}
+
+	return data
 }
 
 export function fetchTrendingMovies(page = 1) {
